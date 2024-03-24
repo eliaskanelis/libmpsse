@@ -10,6 +10,9 @@
 #include "mpsse.h"
 #include "support.h"
 
+static unsigned char fast_rw_buf[SPI_RW_SIZE + CMD_SIZE];
+
+
 /* Builds a block buffer for the Fast* functions. For internal use only. */
 int fast_build_block_buffer(struct mpsse_context *mpsse, uint8_t cmd, unsigned char *data, int size, int *buf_size)
 {
@@ -64,9 +67,9 @@ int FastWrite(struct mpsse_context *mpsse, char *data, int size)
 				{
 					txsize = mpsse->xsize;
 				}
-	
+
 				if(fast_build_block_buffer(mpsse, mpsse->tx, (unsigned char *) (data + n), txsize, &buf_size) == MPSSE_OK)
-				{	
+				{
 					if(raw_write(mpsse, fast_rw_buf, buf_size) == MPSSE_OK)
 					{
 						n += txsize;
@@ -90,7 +93,7 @@ int FastWrite(struct mpsse_context *mpsse, char *data, int size)
 			}
 		}
 	}
-		
+
 	return MPSSE_FAIL;
 }
 
@@ -144,11 +147,11 @@ int FastRead(struct mpsse_context *mpsse, char *data, int size)
 			}
 		}
 	}
-	
+
 	return MPSSE_FAIL;
 }
 
-/* 
+/*
  * Function to perform fast transfers in MPSSE.
  *
  * @mpsse - libmpsse context pointer.

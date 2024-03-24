@@ -1,4 +1,4 @@
-#ifndef _LIBMPSSE_H_ 
+#ifndef _LIBMPSSE_H_
 #define _LIBMPSSE_H_
 
 #include <stdint.h>
@@ -16,7 +16,7 @@
 #define LSB			0x08
 
 #define CHUNK_SIZE		65535
-#define SPI_RW_SIZE		(63 * 1024) 
+#define SPI_RW_SIZE		(63 * 1024)
 #define SPI_TRANSFER_SIZE	512
 #define I2C_TRANSFER_SIZE	64
 
@@ -218,7 +218,6 @@ swig_string_data Transfer(struct mpsse_context *mpsse, char *data, int size);
 char *Read(struct mpsse_context *mpsse, int size);
 char *Transfer(struct mpsse_context *mpsse, char *data, int size);
 
-unsigned char fast_rw_buf[SPI_RW_SIZE + CMD_SIZE];
 int FastWrite(struct mpsse_context *mpsse, char *data, int size);
 int FastRead(struct mpsse_context *mpsse, char *data, int size);
 int FastTransfer(struct mpsse_context *mpsse, char *wdata, char *rdata, int size);
